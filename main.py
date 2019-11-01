@@ -23,6 +23,6 @@ def add_item():
         return response
 
     # Return response
-    response = Response(json.dumps(res_data), mmietype='application/json')
+    response = Response(json.dumps(res_data), mimetype='application/json')
 
     return response
