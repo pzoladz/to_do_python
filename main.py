@@ -26,3 +26,19 @@ def add_item():
     response = Response(json.dumps(res_data), mimetype='application/json')
 
     return response
+
+@app.route('/items/all')
+def get_all_items():
+    res_data = helper.get_all_items()
+
+    # Return error if item not added
+    if res_data is None:
+        response = Response("{'error'}: 'Cannot get all items'}", status=400, mimetype='application.json')
+        return response
+
+    # Return response
+    response = Response(json.dumps(res_data), mimetype='application/json')
+
+    return response
+
+
