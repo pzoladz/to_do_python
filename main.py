@@ -55,4 +55,17 @@ def get_item():
     response = Response(json.dumps(res_data), status=200, mimetype='application/json')
     return response
 
+@app.route('/item/remove', methods=['DELETE'])
+def delete_item():
+    req_data = request.get_json()
+    item = req_data['item']
 
+    res_data = helper.delete_item(item)
+
+    if res_data is None:
+        response = Response("{'error': 'Error deleting item - '" + item + "}", status=400, mimietype='application/json')
+        return response
+
+    response = Response(json.dumps(res_data), mimetype='application/json')
+
+    return response
