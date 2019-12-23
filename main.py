@@ -41,4 +41,18 @@ def get_all_items():
 
     return response
 
+@app.route('/item/status', methods=['GET'])
+def get_item():
+    item_name = request.args.get('name')
+    status = helper.get_item(item_name)
+
+    if status is None:
+        response = Response("{'error'}: 'Item not found - %s'}" % item_name, status=400, mimetype='application.json')
+        return response
+
+    res_data = { 'status': status}
+
+    response = Response(json.dumps(res_data), status=200, mimetype='application/json')
+    return response
+
 
