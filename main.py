@@ -55,6 +55,22 @@ def get_item():
     response = Response(json.dumps(res_data), status=200, mimetype='application/json')
     return response
 
+
+@app.route('/item/update', methods=['PUT'])
+def update_status():
+    req_data = request.get_json()
+    item = req_data['item']
+    status = req_data['status']
+
+    res_data = helper.update_status(item, status)
+
+    if res_data is None:
+        response = Response("{'error'}: 'Error updating item - %s'}" % item, status=400, mimetype='application.json')
+        return response
+
+    response = Response(json.dumps(res_data), mimetype='application/json')
+    return response
+
 @app.route('/item/remove', methods=['DELETE'])
 def delete_item():
     req_data = request.get_json()
